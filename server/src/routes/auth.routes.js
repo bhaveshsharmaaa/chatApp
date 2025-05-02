@@ -19,8 +19,8 @@ router.post("/logout", logout);
 router.put("/update-profile", protectedRoute, updateProfile);
 
 router.get("/check", protectedRoute, checkAuth);
-router.get("/me", protectedRoute, (req, res) => {
-  res.status(200).json({ success: true, user: req.user });
-});
+// router.get("/me", protectedRoute, (req, res) => {
+//   res.status(200).json({ success: true, user: req.user });
+// });
 
 export default router;
