@@ -40,7 +40,7 @@ console.log("Registering /api/auth");
 app.use("/api/auth", authRoutes);
 
 console.log("Registering /api/message");
-app.use("/api/message", messageRoutes);
+app.use("/api/messages", messageRoutes);
 
 console.log("chat routes registered");
 app.use("/api/chat", tokenWalaRoutes);
