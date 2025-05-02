@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes.js";
 import messageRoutes from "./routes/message.routes.js";
+import tokenWalaRoutes from "./routes/chat.routes.js";
 import { connectDB } from "./lib/db.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -40,6 +41,9 @@ app.use("/api/auth", authRoutes);
 
 console.log("Registering /api/message");
 app.use("/api/message", messageRoutes);
+
+console.log("chat routes registered");
+app.use("/api/chat", tokenWalaRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));

@@ -9,7 +9,7 @@ export function formatMessageTime(date) {
 }
 
 export async function getStreamToken() {
-  const response = await axiosInstance.get("/messages/token");
+  const response = await axiosInstance.get("/chat/token");
   console.log("Stream token response:", response.data); // <-- add this
   return response.data;
 }
