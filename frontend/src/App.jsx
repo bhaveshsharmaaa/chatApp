@@ -11,6 +11,7 @@ import "./index.css";
 import HomePage from "./pages/HomePage";
 import VideoCallUI from "./pages/VideoCall";
 import { getStreamToken } from "./lib/utils";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   const { onlineUsers, authUser, checkAuth, isCheckingAuth, getAuthUser } =
@@ -54,6 +55,7 @@ const App = () => {
           path="/profile"
           element={authUser ? <ProfilePage /> : <Navigate to={"/"} />}
         />
+        <Route path="*" element={<NotFound />} />
 
         <Route
           path="/videocall/:id"
