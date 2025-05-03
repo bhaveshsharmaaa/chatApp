@@ -37,16 +37,19 @@ const ChatInput = () => {
   const handleSendMessage = async (e) => {
     e.preventDefault();
     setImagePreview(null);
-    getUsers();
     if (!text.trim() && !imagePreview) return;
 
     try {
+      // Send the message (text or image)
       await sendMessages({
         text: text.trim(),
         image: imagePreview,
       });
 
-      // Reset input
+      // Trigger a re-fetch of users and messages
+      getUsers();
+
+      // Reset input fields
       setText("");
       if (fileInputRef.current) fileInputRef.current.value = "";
     } catch (error) {
@@ -101,7 +104,7 @@ const ChatInput = () => {
 
         <input
           type="text"
-          className="flex h-10 w-full  rounded-md border border-gray-200 px-3 py-2 text-sm"
+          className="flex h-10 w-full rounded-md border border-gray-200 px-3 py-2 text-sm"
           placeholder="Type a message..."
           value={text}
           onChange={(e) => setText(e.target.value)}

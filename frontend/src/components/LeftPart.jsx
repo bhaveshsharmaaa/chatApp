@@ -102,7 +102,6 @@ const LeftPart = () => {
                   <h5 className="text-sm font-semibold">{chat.name}</h5>
                   <p className="truncate text-xs text-gray-500">
                     {chat.lastMessage ? (
-                      // Check if the last message is an image
                       chat.lastMessage.match(/\.(jpeg|jpg|gif|png)$/i) ? (
                         <img
                           src={chat.lastMessage}
