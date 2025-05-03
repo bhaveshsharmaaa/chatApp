@@ -5,6 +5,7 @@ import ChatHeader from "./ChatHeader";
 import ChatInput from "./ChatInput";
 import { useAuthStore } from "../Store/useAuthStore";
 import { formatMessageTime } from "../lib/utils";
+import userPicDummy from "../assets/placeholder-user.jpg";
 
 // Util: Convert text into clickable link JSX
 const parseTextWithLinks = (text) => {
@@ -83,8 +84,8 @@ const ChatContainer = () => {
                     <img
                       src={
                         isSender
-                          ? selectedUser?.profilePicture || "/avatar.png"
-                          : authUser?.data?.profilePicture || "/avatar.png"
+                          ? selectedUser?.profilePicture || "userPicDummy"
+                          : authUser?.data?.profilePicture || "userPicDummy"
                       }
                       alt="Profile"
                       className="w-full h-full object-cover"
