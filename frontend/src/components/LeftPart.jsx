@@ -101,7 +101,20 @@ const LeftPart = () => {
                 <div className="flex-1 overflow-hidden">
                   <h5 className="text-sm font-semibold">{chat.name}</h5>
                   <p className="truncate text-xs text-gray-500">
-                    {chat.lastMessage || "No message"}
+                    {chat.lastMessage ? (
+                      // Check if the last message is an image
+                      chat.lastMessage.match(/\.(jpeg|jpg|gif|png)$/i) ? (
+                        <img
+                          src={chat.lastMessage}
+                          alt="Last message image"
+                          className="w-12 h-12 object-cover rounded-lg"
+                        />
+                      ) : (
+                        chat.lastMessage
+                      )
+                    ) : (
+                      "No message"
+                    )}
                   </p>
                 </div>
 
