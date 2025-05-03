@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useChatStore } from "../Store/useChatStore";
 import SidebarSkeleton from "./Skeletons/SidebarSkeleton";
 import { useAuthStore } from "../Store/useAuthStore";
-import logo from "../assets/logo.png"; // Adjust the path as necessary
+import logo from "../assets/logo.png";
 import userPicDummy from "../assets/placeholder-user.jpg";
 
 const LeftPart = () => {
@@ -13,6 +13,7 @@ const LeftPart = () => {
   useEffect(() => {
     getUsers();
   }, [getUsers]);
+
   useEffect(() => {
     setAuthUser(authUser);
   }, [setAuthUser]);
@@ -55,60 +56,64 @@ const LeftPart = () => {
 
         {/* Recent conversations */}
         <div className="space-y-2">
-          <h4 className="text-xs  font-semibold uppercase text-gray-500">
+          <h4 className="text-xs font-semibold uppercase text-gray-500">
             Recent Conversations
           </h4>
 
-          {users.map((chat) => (
-            <div
-              key={chat._id}
-              className={`flex items-center space-x-4 rounded-lg p-2 hover:bg-gray-100 cursor-pointer ${
-                selectedUser?._id === chat._id ? "bg-gray-200" : ""
-              }`}
-              onClick={() => handleClick(chat)}
-            >
-              <div className="relative h-10 w-10 shrink-0">
-                {/* Avatar circle */}
-                <div className="overflow-hidden rounded-full bg-gray-100 h-full w-full">
-                  {chat.profilePicture ? (
-                    <img
-                      src={chat.profilePicture}
-                      alt={chat.name || "User"}
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center text-sm font-semibold text-gray-600">
-                      {chat.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")
-                        .toUpperCase()}
-                    </div>
+          {[...users]
+            .sort((a, b) => {
+              const timeA = new Date(a.lastMessageTime).getTime() || 0;
+              const timeB = new Date(b.lastMessageTime).getTime() || 0;
+              return timeB - timeA;
+            })
+            .map((chat) => (
+              <div
+                key={chat._id}
+                className={`flex items-center space-x-4 rounded-lg p-2 hover:bg-gray-100 cursor-pointer ${
+                  selectedUser?._id === chat._id ? "bg-gray-200" : ""
+                }`}
+                onClick={() => handleClick(chat)}
+              >
+                <div className="relative h-10 w-10 shrink-0">
+                  <div className="overflow-hidden rounded-full bg-gray-100 h-full w-full">
+                    {chat.profilePicture ? (
+                      <img
+                        src={chat.profilePicture}
+                        alt={chat.name || "User"}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center text-sm font-semibold text-gray-600">
+                        {chat.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")
+                          .toUpperCase()}
+                      </div>
+                    )}
+                  </div>
+
+                  {onlineUsers.includes(chat._id) && (
+                    <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-white z-10" />
                   )}
                 </div>
 
-                {/* Green online dot */}
-                {onlineUsers.includes(chat._id) && (
-                  <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-white z-10" />
-                )}
-              </div>
+                <div className="flex-1 overflow-hidden">
+                  <h5 className="text-sm font-semibold">{chat.name}</h5>
+                  <p className="truncate text-xs text-gray-500">
+                    {chat.lastMessage || "No message"}
+                  </p>
+                </div>
 
-              <div className="flex-1 overflow-hidden">
-                <h5 className="text-sm font-semibold">{chat.name}</h5>
-                <p className="truncate text-xs text-gray-500">
-                  {chat.lastMessage || "No message"}
-                </p>
+                <div className="text-right text-xs text-gray-500 whitespace-nowrap">
+                  {chat.lastMessageTime &&
+                    new Date(chat.lastMessageTime).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                </div>
               </div>
-
-              <div className="text-right text-xs text-gray-500 whitespace-nowrap">
-                {chat.lastMessageTime &&
-                  new Date(chat.lastMessageTime).toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </div>
