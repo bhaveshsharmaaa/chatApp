@@ -84,8 +84,8 @@ const ChatContainer = () => {
                     <img
                       src={
                         isSender
-                          ? selectedUser?.profilePicture || "userPicDummy"
-                          : authUser?.data?.profilePicture || "userPicDummy"
+                          ? selectedUser?.profilePicture || userPicDummy
+                          : authUser?.data?.profilePicture || userPicDummy
                       }
                       alt="Profile"
                       className="w-full h-full object-cover"
