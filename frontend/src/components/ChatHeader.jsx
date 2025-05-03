@@ -2,6 +2,7 @@ import React from "react";
 import { useChatStore } from "../Store/useChatStore";
 import { ArrowLeft, MoreVertical, Phone, Video } from "lucide-react";
 import { useAuthStore } from "../Store/useAuthStore";
+import userPicDummy from "../assets/placeholder-user.jpg";
 import toast from "react-hot-toast";
 
 const ChatHeader = () => {
@@ -27,9 +28,7 @@ const ChatHeader = () => {
         />
         <div className="relative flex h-10 w-10 overflow-hidden rounded-full">
           <img
-            src={
-              selectedUser?.profilePicture || "src/assets/placeholder-user.jpg"
-            }
+            src={selectedUser?.profilePicture || userPicDummy}
             alt={selectedUser?.name || "User"}
             className="h-full w-full object-cover"
           />

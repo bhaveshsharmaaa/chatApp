@@ -3,6 +3,7 @@ import { useChatStore } from "../Store/useChatStore";
 import SidebarSkeleton from "./Skeletons/SidebarSkeleton";
 import { useAuthStore } from "../Store/useAuthStore";
 import logo from "../assets/logo.png"; // Adjust the path as necessary
+import userPicDummy from "../assets/placeholder-user.jpg";
 
 const LeftPart = () => {
   const { getUsers, users, selectedUser, setSelectedUser, isUserLoading } =
@@ -31,10 +32,7 @@ const LeftPart = () => {
           <div className="flex items-center space-x-4">
             <div className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-200">
               <img
-                src={
-                  authUser?.data?.profilePicture ||
-                  "/assets/placeholder-user.jpg"
-                }
+                src={authUser?.data?.profilePicture || userPicDummy}
                 alt="Your profile"
                 className="aspect-square h-full w-full object-cover"
               />
