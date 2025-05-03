@@ -23,7 +23,7 @@ app.use(cookieParser());
 // CORS setup
 app.use(
   cors({
-    origin: "https://chatapp-xan2.onrender.com",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
@@ -41,8 +41,9 @@ app.use("/api/chat", tokenWalaRoutes);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-  app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  // 🔥 This serves React for ALL unknown paths
+  app.get("*", (_, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
   });
 }
 
